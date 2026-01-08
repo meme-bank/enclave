@@ -1,0 +1,16 @@
+version: '3.8'
+services:
+  postgres:
+    image: postgres:16
+    container_name: octopus_auth
+    environment:
+      POSTGRES_USER: octopus_auth
+      POSTGRES_PASSWORD: octopus_auth
+      POSTGRES_DB: octopus_auth
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:

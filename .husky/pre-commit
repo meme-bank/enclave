@@ -1,1 +1,1 @@
-yarn lint && yarn test
+yarn lint && npx tsc --noEmit && yarn test

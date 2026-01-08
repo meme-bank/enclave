@@ -7,6 +7,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './server/app.module';
 import { ConfigService } from '@nestjs/config';
 import { EnvironmentConfiguration } from './config/configuration';
+import { join } from 'path';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(
@@ -25,6 +26,7 @@ async function bootstrap() {
     dev: !isProd,
     spa: true,
     clientModule: './client/entry-client.tsx',
+    distDir: join(process.cwd(), '/dist/client'),
   });
 
   await fastify.vite.ready();

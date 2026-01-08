@@ -11,6 +11,7 @@ import { TsMorphMetadataProvider } from '@mikro-orm/reflection';
 @Module({
   imports: [
     MikroOrmModule.forRootAsync({
+      driver: PostgreSqlDriver,
       inject: [ConfigService],
       useFactory(config: ConfigService<EnvironmentConfiguration>) {
         const isProd =
