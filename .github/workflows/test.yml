@@ -1,0 +1,40 @@
+name: Octopus Enclave CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 25
+        uses: actions/setup-node@v4
+        with:
+          node-version: 25
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Lint check
+        run: yarn lint
+
+      - name: Type check (TypeScript)
+        run: npx tsc --noEmit
+
+      - name: Build Application
+        run: yarn build
+        env:
+          NODE_ENV: production
+          DB_PASSWORD: ci_test_password
+          VK_CLIENT_SECRET: ci_test_secret
+
+      - name: Run Tests
+        run: yarn test
