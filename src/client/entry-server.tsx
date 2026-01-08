@@ -1,8 +1,8 @@
 import React from 'react';
 import { renderToString } from 'react-dom/server';
-import { App } from './App';
+import { App, IApplicationProps } from './App';
 
-export function render(url: string, data: any) {
+export function render(url: string, data: IApplicationProps) {
   const element = (
     <React.StrictMode>
       <App {...data} />

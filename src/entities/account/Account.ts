@@ -1,17 +1,17 @@
-import { Entity, Enum, PrimaryKey, Property } from "@mikro-orm/core";
+import { Entity, Enum, PrimaryKey, Property } from '@mikro-orm/core';
 
 export enum AccountType {
-  PERSON = "person",
-  ORGANIZATION = "organization",
-  GOVERMENT = "goverment",
-  ALLIANCE = "alliance"
+  PERSON = 'person',
+  ORGANIZATION = 'organization',
+  GOVERMENT = 'goverment',
+  ALLIANCE = 'alliance',
 }
 
 export enum AccountStatus {
   PENDING,
   ACTIVE,
   DECLINED,
-  BANNED
+  BANNED,
 }
 
 @Entity()
@@ -25,7 +25,7 @@ export class Account {
   @Property({ unique: true })
   TagName!: string; /* Ссылка типа крутой */
 
-  @Property({ columnType: "text" })
+  @Property({ columnType: 'text' })
   Description?: string; /* Описание того, насколько эта хуйн крутая */
 
   @Enum(() => AccountType)

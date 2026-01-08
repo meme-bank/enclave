@@ -1,7 +1,5 @@
-import React from "react";
+export type IApplicationProps = any;
 
-export function App({ initialData }) {
-  return <div>
-    хуй
-  </div>;
+export function App(props: IApplicationProps) {
+  return <div>{JSON.stringify(props)}</div>;
 }

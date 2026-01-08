@@ -1,6 +1,6 @@
-import { Module } from "@nestjs/common";
-import { ConfigModule } from "@nestjs/config";
-import { ValidateEnvironmentConfiguration } from "src/config/configuration";
+import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
+import { ValidateEnvironmentConfiguration } from 'src/config/configuration';
 
 @Module({
   imports: [
@@ -8,6 +8,6 @@ import { ValidateEnvironmentConfiguration } from "src/config/configuration";
       isGlobal: true,
       load: [ValidateEnvironmentConfiguration],
     }),
-  ]
+  ],
 })
-export class ConfigurationModule { }
+export class ConfigurationModule {}

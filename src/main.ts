@@ -1,4 +1,7 @@
-import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify';
+import {
+  FastifyAdapter,
+  NestFastifyApplication,
+} from '@nestjs/platform-fastify';
 import FastifyVite from '@fastify/vite';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './server/app.module';
@@ -8,11 +11,12 @@ import { EnvironmentConfiguration } from './config/configuration';
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(
     AppModule,
-    new FastifyAdapter()
+    new FastifyAdapter(),
   );
 
   const config = app.get(ConfigService<EnvironmentConfiguration>);
-  const isProd = config.get('environment_mode', { infer: true }) === 'production';
+  const isProd =
+    config.get('environment_mode', { infer: true }) === 'production';
 
   const fastify = app.getHttpAdapter().getInstance();
 
@@ -20,11 +24,10 @@ async function bootstrap() {
     root: process.cwd(),
     dev: !isProd,
     spa: true,
-    clientModule: "./client/entry-client.tsx"
+    clientModule: './client/entry-client.tsx',
   });
 
   await fastify.vite.ready();
-
 
   const port = config.get('application.port', { infer: true }) as number;
   const host = config.get('application.hostname', { infer: true }) as string;
@@ -32,4 +35,4 @@ async function bootstrap() {
   await app.listen(port, host);
   console.log(`🚀 Octopus Enclave is running on: http://${host}:${port}`);
 }
-bootstrap();
+bootstrap().catch(console.error);

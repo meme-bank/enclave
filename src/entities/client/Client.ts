@@ -1,18 +1,25 @@
-import { ArrayType, Entity, Enum, EnumArrayType, PrimaryKey, Property } from "@mikro-orm/core";
+import {
+  ArrayType,
+  Entity,
+  Enum,
+  EnumArrayType,
+  PrimaryKey,
+  Property,
+} from '@mikro-orm/core';
 import { v7 } from 'uuid';
 
 export enum GrantTypes {
-  AUTHORIZATION_CODE = "authorization_code",
-  REFRESH_TOKEN = "refresh_token",
-  PASSWORD = "password"
+  AUTHORIZATION_CODE = 'authorization_code',
+  REFRESH_TOKEN = 'refresh_token',
+  PASSWORD = 'password',
 }
 
 export enum TrustFactor {
-  GRAY = "gray",
-  WHITE = "white",
-  INFRASTURE = "infrastructure", /* Самое крутое доверие */
-  BLACK = "black", /* Не хочу отображать кнопку Не спрашивать для таких приложений */
-  BANNED = "banned" /* Не хочу чтобы они ваще могли проводить авторизацию */
+  GRAY = 'gray',
+  WHITE = 'white',
+  INFRASTURE = 'infrastructure' /* Самое крутое доверие */,
+  BLACK = 'black' /* Не хочу отображать кнопку Не спрашивать для таких приложений */,
+  BANNED = 'banned' /* Не хочу чтобы они ваще могли проводить авторизацию */,
 }
 
 /* Приложение крч, которое хочет данные */
@@ -34,7 +41,7 @@ export class Client {
   @Property({ type: EnumArrayType<GrantTypes> })
   AllowedGrantTypes: GrantTypes[] = [
     GrantTypes.AUTHORIZATION_CODE,
-    GrantTypes.REFRESH_TOKEN
+    GrantTypes.REFRESH_TOKEN,
   ]; /* Какие разрешены методы авторизации */
 
   @Enum(() => TrustFactor)

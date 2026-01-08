@@ -1,6 +1,9 @@
 import { Module } from '@nestjs/common';
 import { MikroOrmModule } from '@mikro-orm/nestjs';
-import { UnderscoreNamingStrategy, PostgreSqlDriver } from '@mikro-orm/postgresql';
+import {
+  UnderscoreNamingStrategy,
+  PostgreSqlDriver,
+} from '@mikro-orm/postgresql';
 import { ConfigService } from '@nestjs/config';
 import { EnvironmentConfiguration } from 'src/config/configuration';
 import { TsMorphMetadataProvider } from '@mikro-orm/reflection';
@@ -9,10 +12,9 @@ import { TsMorphMetadataProvider } from '@mikro-orm/reflection';
   imports: [
     MikroOrmModule.forRootAsync({
       inject: [ConfigService],
-      async useFactory(
-        config: ConfigService<EnvironmentConfiguration>
-      ) {
-        const isProd = config.get("environment_mode", { infer: true }) === "production";
+      useFactory(config: ConfigService<EnvironmentConfiguration>) {
+        const isProd =
+          config.get('environment_mode', { infer: true }) === 'production';
 
         return {
           /* ---ORM Settings--- */
@@ -27,13 +29,15 @@ import { TsMorphMetadataProvider } from '@mikro-orm/reflection';
             enabled: true,
             pretty: true,
             options: {
-              cacheDir: process.cwd() + "/.temp/metadata"
-            }
+              cacheDir: process.cwd() + '/.temp/metadata',
+            },
           },
 
           /* Entities definening */
-          entities: [isProd ? "./dist/entities/**/*.js" : "./src/entities/**/*.ts"],
-          entitiesTs: ["./src/entities/**/*.ts"],
+          entities: [
+            isProd ? './dist/entities/**/*.js' : './src/entities/**/*.ts',
+          ],
+          entitiesTs: ['./src/entities/**/*.ts'],
 
           /* Migrations */
           migrations: {
@@ -44,15 +48,15 @@ import { TsMorphMetadataProvider } from '@mikro-orm/reflection';
           },
 
           /* ---Connection--- */
-          dbName: config.get("database.name", { infer: true }),
+          dbName: config.get('database.name', { infer: true }),
 
           /* User Credentials */
-          password: config.get("database.password", { infer: true }),
-          user: config.get("database.username", { infer: true }),
+          password: config.get('database.password', { infer: true }),
+          user: config.get('database.username', { infer: true }),
 
           /* Connection to database manager */
-          host: config.get("database.hostname", { infer: true }),
-          port: config.get("database.port", { infer: true }),
+          host: config.get('database.hostname', { infer: true }),
+          port: config.get('database.port', { infer: true }),
 
           /* ---Context options--- */
           registerRequestContext: true,
@@ -60,8 +64,8 @@ import { TsMorphMetadataProvider } from '@mikro-orm/reflection';
           /* ---Debug options--- */
           debug: !isProd,
         };
-      }
-    })
+      },
+    }),
   ],
 })
-export class DatabaseModule { }
+export class DatabaseModule {}
