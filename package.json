@@ -6,10 +6,10 @@
   "private": false,
   "license": "AGPL-3.0-only",
   "scripts": {
-    "build": "nest build --builder swc --no-experimental-strip-types && vite build && vite build --ssr",
+    "build": "nest build && vite build && vite build --ssr",
     "format": "prettier --write \"src/**/*.ts\" \"src/**/*.tsx\"",
     "start": "nest start",
-    "start:dev": "nest start --watch --no-experimental-strip-types --builder swc",
+    "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
     "orm": "mikro-orm",
