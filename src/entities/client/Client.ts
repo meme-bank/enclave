@@ -14,15 +14,13 @@ export enum GrantTypes {
   PASSWORD = 'password',
 }
 
-export const TrustFactor = {
-  GRAY: 'gray',
-  WHITE: 'white',
-  INFRASTURE: 'infrastructure' /* Самое крутое доверие */,
-  BLACK:
-    'black' /* Не хочу отображать кнопку Не спрашивать для таких приложений */,
-  BANNED: 'banned' /* Не хочу чтобы они ваще могли проводить авторизацию */,
-} as const;
-export type TrustFactor = (typeof TrustFactor)[keyof typeof TrustFactor];
+export enum TrustFactor {
+  GRAY = 'gray',
+  WHITE = 'white',
+  INFRASTURE = 'infrastructure' /* Самое крутое доверие */,
+  BLACK = 'black' /* Не хочу отображать кнопку Не спрашивать для таких приложений */,
+  BANNED = 'banned' /* Не хочу чтобы они ваще могли проводить авторизацию */,
+}
 
 /* Приложение крч, которое хочет данные */
 @Entity()
