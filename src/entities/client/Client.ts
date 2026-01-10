@@ -6,7 +6,6 @@ import {
   EnumArrayType,
   Property,
 } from '@mikro-orm/core';
-import { v7 } from 'uuid';
 
 export enum GrantTypes {
   AUTHORIZATION_CODE = 'authorization_code',

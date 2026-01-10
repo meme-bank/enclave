@@ -1,11 +1,9 @@
-import type { EntityProps } from '@/types/EntityProps';
 import { BaseEntity, BaseEntityOptions } from '@entities/BaseEntity';
 import {
   BeforeCreate,
   BeforeUpdate,
   Entity,
   Enum,
-  PrimaryKey,
   Property,
 } from '@mikro-orm/core';
 

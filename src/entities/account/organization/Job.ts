@@ -3,8 +3,6 @@ import {
   Entity,
   ManyToMany,
   ManyToOne,
-  OneToMany,
-  PrimaryKey,
   Property,
 } from '@mikro-orm/core';
 import { Organization } from './Organization';
