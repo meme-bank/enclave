@@ -23,21 +23,11 @@
     "noFallthroughCasesInSwitch": false,
     "jsx": "react-jsx",
     "paths": {
-      "@server/*": [
-        "src/server/*"
-      ],
-      "@client/*": [
-        "src/client/*"
-      ],
-      "@entities/*": [
-        "src/entities/*"
-      ],
-      "@configuration/*": [
-        "src/configuration/*"
-      ],
-      "@/*": [
-        "src/*"
-      ],
-    }
-  }
+      "@server/*": ["src/server/*"],
+      "@client/*": ["src/client/*"],
+      "@entities/*": ["src/entities/*"],
+      "@configuration/*": ["src/configuration/*"],
+      "@/*": ["src/*"],
+    },
+  },
 }

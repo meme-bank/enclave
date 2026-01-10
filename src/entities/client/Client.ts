@@ -1,9 +1,9 @@
+import { BaseEntity } from '@entities/BaseEntity';
 import {
   ArrayType,
   Entity,
   Enum,
   EnumArrayType,
-  PrimaryKey,
   Property,
 } from '@mikro-orm/core';
 import { v7 } from 'uuid';
@@ -24,26 +24,23 @@ export enum TrustFactor {
 
 /* Приложение крч, которое хочет данные */
 @Entity()
-export class Client {
-  @PrimaryKey()
-  ClientId: string = v7(); /* Здесь уже в отличие от аккаунта у нас UUID */
-
+export class Client extends BaseEntity {
   @Property()
-  ClientName: string; /* Имя приложения */
+  clientName: string; /* Имя приложения */
 
   @Property({ hidden: true })
-  ClientSecret: string; /* Секрет приложения (интересно, какой) */
+  clientSecretHash: string; /* Секрет приложения (интересно, какой) */
 
   /* Прямо относится к автооризации */
   @Property({ type: ArrayType })
-  RedirectUris: string[] = []; /* Куда перенаправлять в итоге */
+  redirectUris: string[] = []; /* Куда перенаправлять в итоге */
 
   @Property({ type: EnumArrayType<GrantTypes> })
-  AllowedGrantTypes: GrantTypes[] = [
+  allowedGrantTypes: GrantTypes[] = [
     GrantTypes.AUTHORIZATION_CODE,
     GrantTypes.REFRESH_TOKEN,
   ]; /* Какие разрешены методы авторизации */
 
   @Enum(() => TrustFactor)
-  Trusted: TrustFactor; /* Чтобы не копировали моё приложение */
+  trustFactor: TrustFactor; /* Чтобы не копировали моё приложение */
 }
