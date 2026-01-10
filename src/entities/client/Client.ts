@@ -1,9 +1,13 @@
+import { Account } from '@entities/account/Account';
+import { Authorization } from '@entities/auth/Authorization';
 import { BaseEntity } from '@entities/BaseEntity';
 import {
   ArrayType,
   Entity,
   Enum,
   EnumArrayType,
+  ManyToOne,
+  OneToMany,
   Property,
 } from '@mikro-orm/core';
 
@@ -33,6 +37,12 @@ export class Client extends BaseEntity {
   /* Прямо относится к автооризации */
   @Property({ type: ArrayType })
   redirectUris: string[] = []; /* Куда перенаправлять в итоге */
+
+  @ManyToOne(() => Account)
+  owner: Account;
+
+  @OneToMany(() => Authorization, (authorization) => authorization.client)
+  authorizations: Authorization[];
 
   @Property({ type: EnumArrayType<GrantTypes> })
   allowedGrantTypes: GrantTypes[] = [

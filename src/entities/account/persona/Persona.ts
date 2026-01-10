@@ -1,9 +1,16 @@
-import { Collection, Entity, ManyToMany, Property } from '@mikro-orm/core';
+import {
+  Collection,
+  Entity,
+  ManyToMany,
+  OneToMany,
+  Property,
+} from '@mikro-orm/core';
 import { Account, AccountOptions, AccountType } from '../Account';
 import { Job } from '../organization/Job';
 import { Citizenship } from '../government/Citizenship';
 import { hash as argon2Hash, verify as argon2Verify } from 'argon2';
 import { AlliancePersonal } from '../alliance/AlliancePersonal';
+import { Authorization } from '@entities/auth/Authorization';
 
 export interface PersonaOptions extends AccountOptions {
   username: string;
@@ -35,6 +42,9 @@ export class Persona extends Account {
     this.passwordHash = options.passwordHash;
     this.type = AccountType.PERSON;
   }
+
+  @OneToMany(() => Authorization, (authorization) => authorization.persona)
+  authorizations: Authorization[];
 
   checkPassword(password: string): Promise<boolean> {
     return argon2Verify(this.passwordHash, password);
