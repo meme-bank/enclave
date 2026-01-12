@@ -28,7 +28,11 @@ export enum GovernmentDependencyType {
 
 @Entity({ discriminatorValue: AccountType.GOVERNMENT })
 export class Government extends Account {
-  @ManyToOne(() => Government, { nullable: true })
+  @ManyToOne(() => Government, {
+    nullable: true,
+    referenceColumnName: 'id',
+    joinColumn: 'parent_id',
+  })
   parent?: Government;
 
   @OneToMany(() => Government, (child) => child.parent)

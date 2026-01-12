@@ -1,5 +1,6 @@
 import { Controller, Get } from '@nestjs/common';
 import { AppService } from './app.service';
+import { ViteRender } from './vite/vite-render.decorator';
 
 @Controller()
 export class AppController {
@@ -8,5 +9,13 @@ export class AppController {
   @Get()
   getHello(): string {
     return this.appService.getHello();
+  }
+
+  @Get('html')
+  @ViteRender()
+  public html() {
+    return {
+      saloloh: 'ipidor',
+    };
   }
 }

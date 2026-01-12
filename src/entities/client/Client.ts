@@ -3,6 +3,7 @@ import { Authorization } from '@entities/auth/Authorization';
 import { BaseEntity } from '@entities/BaseEntity';
 import {
   ArrayType,
+  Collection,
   Entity,
   Enum,
   EnumArrayType,
@@ -42,7 +43,7 @@ export class Client extends BaseEntity {
   owner: Account;
 
   @OneToMany(() => Authorization, (authorization) => authorization.client)
-  authorizations: Authorization[];
+  authorizations = new Collection<Authorization, Client>(this);
 
   @Property({ type: EnumArrayType<GrantTypes> })
   allowedGrantTypes: GrantTypes[] = [

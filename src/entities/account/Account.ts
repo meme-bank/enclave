@@ -1,8 +1,9 @@
-import { Authorization } from '@entities/auth/Authorization';
+import type { Authorization } from '@entities/auth/Authorization';
 import { BaseEntity, BaseEntityOptions } from '@entities/BaseEntity';
 import {
   BeforeCreate,
   BeforeUpdate,
+  Collection,
   Entity,
   Enum,
   OneToMany,
@@ -33,6 +34,7 @@ export interface AccountOptions extends BaseEntityOptions {
 
 @Entity({
   discriminatorColumn: 'type',
+  discriminatorMap: AccountType,
   abstract: true,
 })
 export abstract class Account extends BaseEntity {
@@ -59,11 +61,8 @@ export abstract class Account extends BaseEntity {
   @Enum(() => AccountStatus)
   accountStatus!: AccountStatus; /* Здесь статус, типа принят, не принят, либо ваще забаннен */
 
-  @OneToMany<Authorization, Account>(
-    () => Authorization,
-    (authorization) => authorization.contextAccount,
-  )
-  contextAuthorizations: Authorization[];
+  @OneToMany<Authorization, Account>('Authorization', 'contextAccount')
+  contextAuthorizations = new Collection<Authorization, Account>(this);
 
   @BeforeCreate()
   @BeforeUpdate()

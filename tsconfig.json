@@ -28,6 +28,7 @@
       "@entities/*": ["src/entities/*"],
       "@configuration/*": ["src/configuration/*"],
       "@/*": ["src/*"],
+      "@shared/*": ["src/shared/*"],
     },
   },
 }

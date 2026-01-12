@@ -8,7 +8,6 @@ import {
 import { Account, AccountOptions, AccountType } from '../Account';
 import { Job } from '../organization/Job';
 import { Citizenship } from '../government/Citizenship';
-import { hash as argon2Hash, verify as argon2Verify } from 'argon2';
 import { AlliancePersonal } from '../alliance/AlliancePersonal';
 import { Authorization } from '@entities/auth/Authorization';
 
@@ -34,6 +33,9 @@ export class Persona extends Account {
   @Property({ hidden: true })
   passwordHash: string;
 
+  @OneToMany(() => Authorization, (authorization) => authorization.persona)
+  authorizations = new Collection<Authorization, Persona>(this);
+
   constructor(
     options: Omit<PersonaOptions, 'password'> & { passwordHash: string },
   ) {
@@ -41,17 +43,5 @@ export class Persona extends Account {
     this.username = options.username;
     this.passwordHash = options.passwordHash;
     this.type = AccountType.PERSON;
-  }
-
-  @OneToMany(() => Authorization, (authorization) => authorization.persona)
-  authorizations: Authorization[];
-
-  checkPassword(password: string): Promise<boolean> {
-    return argon2Verify(this.passwordHash, password);
-  }
-
-  static async create(options: PersonaOptions): Promise<Persona> {
-    const passwordHash = await argon2Hash(options.password);
-    return new Persona({ ...options, passwordHash });
   }
 }

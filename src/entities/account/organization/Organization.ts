@@ -11,7 +11,11 @@ export class Organization extends Account {
   @OneToMany(() => Organization, (child) => child.parent)
   children = new Collection<Organization, Organization>(this);
 
-  @ManyToOne()
+  @ManyToOne({
+    nullable: true,
+    referenceColumnName: 'id',
+    joinColumn: 'parent_id',
+  })
   parent: Organization | null = null;
 
   @ManyToOne(() => Government)
